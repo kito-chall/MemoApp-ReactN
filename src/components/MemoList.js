@@ -29,7 +29,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     width: '100%',
     flex: 1,
-    paddingTop: 80,
   },
   memoListItem: {
     padding: 16,
@@ -37,12 +36,14 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
   },
   memoTitle: {
+    color: '#3d3d3d',
     fontSize: 18,
-    marginBottom: 4,
+    fontWeight: 'bold',
+    marginBottom: 4,    
   },
   memoDate: {
     fontSize: 12,
-    color: '#ddd'
+    color: '#3d3d3d'
   },
 })
 
