@@ -26,7 +26,6 @@ const styles = StyleSheet.create({
   editInput: {
     flex: 1,
     fontSize: 16,
-    backgroundColor: '#fff',
     paddingTop: 32, 
     paddingBottom: 16,
     paddingLeft: 16,
