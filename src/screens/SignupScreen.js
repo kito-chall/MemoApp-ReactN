@@ -1,9 +1,27 @@
 import React from 'react';
 import { StyleSheet, View , Text, TextInput, TouchableHighlight } from 'react-native';
 
+import firebase from 'firebase';
+
 class SignupScreen extends React.Component {
-  onPressSubmit () {
-    console.log('押されました');  
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: '',
+      password: '',
+    };
+  }
+
+  signupSubmit () {
+    firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
+      .then((user) => {
+        console.log('Success: ',user);
+        this.props.navigation.navigate('MemoList');
+      })
+      .catch((error) => {
+        console.log('error: ',error);
+      }
+    );
   }
 
   render () {
@@ -13,16 +31,23 @@ class SignupScreen extends React.Component {
 
         <TextInput 
           style={styles.input} 
-          value='EmailAdress'
+          value={this.state.email}
+          onChangeText={(text)=> {this.setState({email: text})}}
+          autoCapitalize='none'
+          autoCorrect={false}
+          placeholder='Email Address'
         />
 
         <TextInput 
           style={styles.input} 
-          value='Password'
+          value={this.state.password}
+          onChangeText={(text)=> {this.setState({password: text})}}
+          secureTextEntry
+          placeholder='Password'
         />
 
         <TouchableHighlight
-          onPress={() => this.onPressSubmit()}
+          onPress={this.signupSubmit.bind(this)}
           style={styles.submitButton}
           underlayColor='#0073bf'
         >
