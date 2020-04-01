@@ -13,7 +13,7 @@ class LoginScreen extends React.Component {
 
         <TextInput 
           style={styles.input} 
-          value='EmailAdress'
+          value='Email address'
         />
 
         <TextInput 
@@ -38,12 +38,13 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
     padding: 24,
+    backgroundColor: '#000',
   },
   loginForm: {
     justifyContent: 'center',
   },
   title: {
-    color: '#333333',
+    color: '#fff',
     fontSize: 18,
     fontWeight: 'bold',
     alignSelf: 'center',
@@ -51,6 +52,7 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 45,
+    color: '#787878',
     backgroundColor: '#ededed',
     marginBottom: 16,
     borderWidth: 1,
@@ -64,6 +66,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#0295F5',
     padding: 10,
+    marginTop: 30,
     height: 42,
     width: '100%',
     borderRadius: 5,

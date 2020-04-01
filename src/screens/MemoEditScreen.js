@@ -12,7 +12,10 @@ class MemoEditScreen extends React.Component {
           value='hi'
         />
 
-        <CircleButton name='check' />
+        <CircleButton
+          name='check'
+          onPress={() => {this.props.navigation.navigate('MemoDetail')}}
+        />
       </View>
     );
   }
@@ -22,10 +25,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     width: '100%',
+    backgroundColor: '#000',
   },
   editInput: {
     flex: 1,
     fontSize: 16,
+    color: '#fff',
     paddingTop: 32, 
     paddingBottom: 16,
     paddingLeft: 16,

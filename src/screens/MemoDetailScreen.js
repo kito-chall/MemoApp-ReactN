@@ -18,6 +18,7 @@ class MemoDetailScreen extends React.Component {
           name='pencil'
           color='#0295F5' 
           style={styles.editButton}
+          onPress={() => {this.props.navigation.navigate('MemoEdit')}}
         />
 
         <View style={styles.memoContent}>
@@ -35,10 +36,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     width: '100%',
+    backgroundColor: '#000',
   },
   memoHeader: {
     height: 100,
-    backgroundColor: '#eee',
+    backgroundColor: '#044c7d',
     justifyContent: 'center',
     paddingLeft: 20,
     shadowOffset: {width: 0,height: 1},
@@ -48,25 +50,24 @@ const styles = StyleSheet.create({
   memoHeaderTitle: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: '#3d3d3d',
+    color: '#fff',
   },
   memoHeaderDate: {
     fontSize: 12,
-    color: '#3d3d3d',
+    color: '#eee',
   },
   memoContent: {
     paddingTop: 30,
     paddingLeft: 20,
     paddingRight: 20,
-    backgroundColor: '#fff',
+    backgroundColor: '#000',
     flex: 1,
   },
   memoContentText: {
-    color: '#3d3d3d',
+    color: '#fff',
   },
   editButton: {
     top: 75,
-    backgroundColor: '#fff',
   }
 });
 

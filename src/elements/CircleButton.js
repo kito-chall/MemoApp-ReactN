@@ -1,29 +1,34 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, TouchableHighlight } from 'react-native';
 import * as Font from 'expo-font';
 import { createIconSet } from '@expo/vector-icons';
 import fontAwsome from '../../assets/fonts/fa-solid-900.ttf';
 
-const CustomIcon = createIconSet({
+const glyphMap = {
   check: '\uf00c',
   pencil: '\uf303',
-  plus: '\uf067',
-}, 'FontAwesome');
+  plus: '\uf067', 
+};
+const CustomIcon = createIconSet(glyphMap, 'FontAwesome', fontAwsome);
 
 class CircleButton extends React.Component {
-  state = {
-    fontLoaded: false,
+  constructor(props) {
+    super(props);
+    this.state = {
+      fontLoaded: false
+    };
   }
-  async UNSAFE_componentWillMount() {
+  
+  async componentDidMount() {
     await Font.loadAsync({
-      FontAwesome: fontAwsome,
+      FontAwesome: fontAwsome
     });
     this.setState({ fontLoaded: true });
   }
 
 
   render() {
-    const { style, color } = this.props;
+    const { style, color, onPress } = this.props;
 
     let bgColor = '#0295F5';
     let textColor = '#fff';
@@ -34,25 +39,35 @@ class CircleButton extends React.Component {
     }
 
     return(
-      <View style={[styles.circleButton, style, { backgroundColor: bgColor }]}>
-        {
-          this.state.fontLoaded ? (
-            <CustomIcon 
-              name={this.props.name}
-              style={[styles.circleButtonIcon, { color: textColor }]} 
-            />
-          ) : null
-        }
-      </View>
+      <TouchableHighlight 
+        style={[styles.container, style]}
+        onPress={onPress}
+        underlayColor='tranparent'
+      >
+        <View style={[styles.circleButton, { backgroundColor: bgColor }]}>
+          {
+            this.state.fontLoaded ? (
+              <CustomIcon 
+                name={this.props.name}
+                style={[styles.circleButtonIcon, { color: textColor }]} 
+              />
+            ) : null
+          }
+        </View>
+      </TouchableHighlight>
     );
   }
 }
 const styles = StyleSheet.create({
-  circleButton: {
+  container: {
     position: 'absolute',
+    width: 50,
+    height: 50,
     bottom: 32,
     right: 32,
-    // backgroundColor: '#0295F5',
+    zIndex: 10,
+  },
+  circleButton: {
     width: 50,
     height: 50,
     borderRadius: 25,
@@ -60,12 +75,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     shadowOffset: {width: 0,height: 1},
     shadowOpacity: 0.5,
-    zIndex: 10,
   },
   circleButtonIcon: {
     fontSize: 24,
     lineHeight: 24,
-    // color: '#fff',
     fontFamily: 'FontAwesome',
   },
 });
