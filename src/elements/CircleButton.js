@@ -42,7 +42,7 @@ class CircleButton extends React.Component {
       <TouchableHighlight 
         style={[styles.container, style]}
         onPress={onPress}
-        underlayColor='tranparent'
+        underlayColor='rgba(255, 255, 255, 0)'
       >
         <View style={[styles.circleButton, { backgroundColor: bgColor }]}>
           {

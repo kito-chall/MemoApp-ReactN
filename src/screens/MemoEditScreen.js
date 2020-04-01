@@ -14,7 +14,7 @@ class MemoEditScreen extends React.Component {
 
         <CircleButton
           name='check'
-          onPress={() => {this.props.navigation.navigate('MemoDetail')}}
+          onPress={() => {this.props.navigation.goBack()}}
         />
       </View>
     );

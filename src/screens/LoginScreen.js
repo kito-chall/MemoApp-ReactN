@@ -2,8 +2,18 @@ import React from 'react';
 import { StyleSheet, View , Text, TextInput, TouchableHighlight } from 'react-native';
 
 class LoginScreen extends React.Component {
-  onPressSubmit () {
-    console.log('押されました');  
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: '',
+      password: '',
+    };
+  }
+
+  loginSubmit () {
+
+    console.log('Login')
+    // this.navigation.navigate('MemoList');
   }
 
   render () {
@@ -13,16 +23,23 @@ class LoginScreen extends React.Component {
 
         <TextInput 
           style={styles.input} 
-          value='Email address'
+          value={this.state.email}
+          onChangeText={(text)=> {this.setState({email: text})}}
+          autoCapitalize='none'
+          autoCorrect={false}
+          placeholder='Email Address'
         />
 
         <TextInput 
           style={styles.input} 
-          value='Password'
+          value={this.state.password}
+          onChangeText={(text)=> {this.setState({password: text})}}
+          secureTextEntry
+          placeholder='Password'
         />
 
         <TouchableHighlight
-          onPress={() => this.onPressSubmit()}
+          onPress={() => this.loginSubmit(this)}
           style={styles.submitButton}
           underlayColor='#0073bf'
         >
@@ -52,7 +69,7 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 45,
-    color: '#787878',
+    // color: '#787878',
     backgroundColor: '#ededed',
     marginBottom: 16,
     borderWidth: 1,
