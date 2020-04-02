@@ -11,7 +11,7 @@ const glyphMap = {
 };
 const CustomIcon = createIconSet(glyphMap, 'FontAwesome', fontAwsome);
 
-class CircleButton extends React.Component {
+class iconButton extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -30,26 +30,18 @@ class CircleButton extends React.Component {
   render() {
     const { style, color, onPress } = this.props;
 
-    let bgColor = '#0295F5';
-    let textColor = '#fff';
-
-    if (color === '#0295F5') {
-      bgColor = '#fff';
-      textColor = '#0295F5';
-    }
-
     return(
       <TouchableHighlight
         style={[styles.container, style]}
         onPress={onPress}
         underlayColor='rgba(255, 255, 255, 0)'
         >
-        <View style={[styles.circleButton, { backgroundColor: bgColor }]}>
+        <View style={styles.iconButton}>
           {
             this.state.fontLoaded ? (
               <CustomIcon 
                 name={this.props.name}
-                style={[styles.circleButtonIcon, { color: textColor }]} 
+                style={styles.icon, { color: color }} 
               />
             ) : null
           }
@@ -60,27 +52,20 @@ class CircleButton extends React.Component {
 }
 const styles = StyleSheet.create({
   container: {
-    position: 'absolute',
     width: 50,
     height: 50,
-    bottom: 32,
-    right: 32,
-    zIndex: 10,
   },
-  circleButton: {
+  iconButton: {
     width: 50,
     height: 50,
     borderRadius: 25,
     justifyContent: 'center',
     alignItems: 'center',
-    shadowOffset: {width: 0,height: 1},
-    shadowOpacity: 0.5,
   },
-  circleButtonIcon: {
+  icon: {
     fontSize: 24,
     lineHeight: 24,
-    // fontFamily: 'FontAwesome',
   },
 });
 
-export default CircleButton;
+export default iconButton;

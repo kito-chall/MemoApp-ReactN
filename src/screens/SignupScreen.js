@@ -12,11 +12,11 @@ class SignupScreen extends React.Component {
     };
   }
 
-  signupSubmit () {
+  handleSignupSubmit () {
     firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
       .then((user) => {
         console.log('Success: ',user);
-        this.props.navigation.navigate('MemoList');
+        this.props.navigation.navigate('MemoList', user);
       })
       .catch((error) => {
         console.log('error: ',error);
@@ -36,6 +36,7 @@ class SignupScreen extends React.Component {
           autoCapitalize='none'
           autoCorrect={false}
           placeholder='Email Address'
+          keyboardType='email-address'
         />
 
         <TextInput 
@@ -44,10 +45,11 @@ class SignupScreen extends React.Component {
           onChangeText={(text)=> {this.setState({password: text})}}
           secureTextEntry
           placeholder='Password'
+          keyboardType='visible-password'
         />
 
         <TouchableHighlight
-          onPress={this.signupSubmit.bind(this)}
+          onPress={this.handleSignupSubmit.bind(this)}
           style={styles.submitButton}
           underlayColor='#0073bf'
         >
@@ -70,9 +72,10 @@ const styles = StyleSheet.create({
   },
   title: {
     color: '#fff',
-    fontSize: 18,
+    fontSize: 22,
     fontWeight: 'bold',
     alignSelf: 'center',
+    marginTop: 20,
     marginBottom: 24,
   },
   input: {

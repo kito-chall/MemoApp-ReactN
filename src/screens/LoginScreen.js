@@ -9,19 +9,23 @@ class LoginScreen extends React.Component {
     this.state = {
       email: '',
       password: '',
-    };
+      loginError: false,
+      errorMessage: null,
+    }
   }
 
-  loginSubmit () {
+  handleLoginSubmit () {
     firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
       .then((user) => {
-        this.props.navigation.navigate('MemoList');
-        console.log('Login Success');
+        this.props.navigation.navigate('MemoList', user);
       })
       .catch((error) => {
         errorCode = error.code;
-        errorCode = error.message;
-        console.log(errorCode, ' : ', errorCode)
+        errorMessage = error.message;      
+        this.setState({
+          loginError: true,
+          errorMessage: 'メールアドレスまたはパスワードが一致しません'
+        });
       }
     );
     console.log('Login')
@@ -32,6 +36,14 @@ class LoginScreen extends React.Component {
       <View style={styles.container}>
         <Text style={styles.title}>ログイン</Text>
 
+        {
+          this.state.loginError ? (
+            <View style={styles.error}>
+              <Text style={styles.errorText}>{this.state.errorMessage}</Text>
+            </View>
+          ) : null
+        }
+        
         <TextInput 
           style={styles.input} 
           value={this.state.email}
@@ -39,6 +51,7 @@ class LoginScreen extends React.Component {
           autoCapitalize='none'
           autoCorrect={false}
           placeholder='Email Address'
+          keyboardType='email-address'
         />
 
         <TextInput 
@@ -47,10 +60,11 @@ class LoginScreen extends React.Component {
           onChangeText={(text)=> {this.setState({password: text})}}
           secureTextEntry
           placeholder='Password'
+          keyboardType='visible-password'
         />
 
         <TouchableHighlight
-          onPress={() => this.loginSubmit(this)}
+          onPress={this.handleLoginSubmit.bind(this)}
           style={styles.submitButton}
           underlayColor='#0073bf'
         >
@@ -73,9 +87,10 @@ const styles = StyleSheet.create({
   },
   title: {
     color: '#fff',
-    fontSize: 18,
+    fontSize: 22,
     fontWeight: 'bold',
     alignSelf: 'center',
+    marginTop: 20,
     marginBottom: 24,
   },
   input: {
@@ -105,6 +120,13 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 16,
   },
+  error: {
+    marginBottom: 10,
+  },
+  errorText: {
+    color: '#ff6161',
+    fontWeight: 'bold'
+  }
 });
 
 export default LoginScreen;
