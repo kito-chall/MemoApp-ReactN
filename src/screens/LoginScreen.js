@@ -7,8 +7,8 @@ class LoginScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: '',
-      password: '',
+      email: 'user1@challkids.com',
+      password: '123456',
       loginError: false,
       errorMessage: null,
     }
@@ -17,7 +17,7 @@ class LoginScreen extends React.Component {
   handleLoginSubmit () {
     firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
       .then((user) => {
-        this.props.navigation.navigate('MemoList', user);
+        this.props.navigation.navigate('MemoList');
       })
       .catch((error) => {
         errorCode = error.code;

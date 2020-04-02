@@ -16,13 +16,13 @@ class MemoCreateScreen extends React.Component {
   }
 
   handleTextSave() {
-    const { params } = this.props.route;
     const db = firebase.firestore();
-    db.collection(`users/${params.user.uid}/memos`).add({
+    const { currentUser } = firebase.auth();
+    db.collection(`users/${currentUser.uid}/memos`).add({
       title: "test title2",
       body: this.state.bodyText,
       create_at: new Date(),
-      email: params.user.email
+      email: currentUser.email
     })
     .then((docRef) => {
         console.log("Document written with ID: ", docRef.id);
