@@ -21,14 +21,14 @@ class MemoListScreen extends React.Component {
     db.collection(`users/${currentUser.uid}/memos`)
     .get()
     .then((querySnapshot) => {
-        const memoList = [];
-        querySnapshot.forEach((doc) => {
-          memoList.push(doc.data())
-        });
-        this.setState({ memoList: memoList });
+      const memoList = [];
+      querySnapshot.forEach((doc) => {
+        memoList.push({ ...doc.data(), key: doc.id })   //objectの結合
+      });
+      this.setState({ memoList: memoList });
     })
     .catch((error) => {
-        console.log("Error getting documents: ", error);
+      console.log("Error getting documents: ", error);
     });
 
   }
