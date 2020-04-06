@@ -1,16 +1,37 @@
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, Button } from 'react-native';
+
+import firebase from 'firebase';
 
 import CircleButton from '../elements/CircleButton';
+import { getParsedDate } from '../Lib/common';
 
 class MemoDetailScreen extends React.Component {
+  constructor(props) {
+    super(props);
+    const { params } = props.route;
+    this.state = {
+      title: params.title,
+      body: params.body,
+      create_at: params.create_at,
+      update_at: params.update_at,
+      key: params.key,
+    }
+  }
+
+  returnMemo(params) {
+    this.setState(params);
+  }
+
   render() {
+    const item = this.props.route.params;
     return(
       <View style={styles.container}>
         <View style={styles.memoHeader}>
           <View>
-            <Text style={styles.memoHeaderTitle}>Item1</Text>
-            <Text style={styles.memoHeaderDate}>2020/3/28</Text>
+            <Text style={styles.memoHeaderTitle}>{this.state.title}</Text>
+            <Text style={styles.memoHeaderDate}>作成日時: { getParsedDate(this.state.create_at) }</Text>
+            <Text style={styles.memoHeaderDate}>更新日時: { getParsedDate(this.state.update_at) }</Text>
           </View>
         </View>
 
@@ -18,12 +39,15 @@ class MemoDetailScreen extends React.Component {
           name='pencil'
           color='#0295F5' 
           style={styles.editButton}
-          onPress={() => {this.props.navigation.navigate('MemoEdit')}}
+          onPress={() => {
+            this.props.navigation.navigate(
+              'MemoEdit', { ...item, returnMemo: this.returnMemo.bind(this)}
+            )}}
         />
 
         <View style={styles.memoContent}>
           <Text style={styles.memoContentText}>
-            メモの中身
+            {this.state.body}
           </Text>
         </View>
 
@@ -48,7 +72,7 @@ const styles = StyleSheet.create({
     zIndex: 9,
   },
   memoHeaderTitle: {
-    fontSize: 20,
+    fontSize: 22,
     fontWeight: 'bold',
     color: '#fff',
   },
@@ -65,6 +89,8 @@ const styles = StyleSheet.create({
   },
   memoContentText: {
     color: '#fff',
+    lineHeight: 20,
+    fontSize: 15,
   },
   editButton: {
     top: 75,

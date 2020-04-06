@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import firebase from 'firebase';
+require("firebase/firestore");
 import ENV from './env.json';
 
 import MemoListScreen from './src/screens/MemoListScreen';

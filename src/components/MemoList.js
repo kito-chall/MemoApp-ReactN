@@ -1,16 +1,17 @@
 import React from 'react';
 import { StyleSheet, View, Text, TouchableHighlight, FlatList } from 'react-native';
+import { getParsedDate } from '../Lib/common';
 
 class MemoList extends React.Component {
   renderMemo (data) {
     const { item } = data;
     return (
       <TouchableHighlight 
-        onPress={() => {this.props.navigation.navigate('MemoDetail')}}
+        onPress={() => {this.props.navigation.navigate('MemoDetail', item)}}
       >
         <View style={styles.memoListItem}>
           <Text style={styles.memoTitle}>{item.title}</Text>
-          <Text style={styles.memoDate}>2020/4/2</Text>
+          <Text style={styles.memoDate}>{getParsedDate(item.create_at)}</Text>
         </View>
       </TouchableHighlight>
     );

@@ -18,7 +18,7 @@ class MemoListScreen extends React.Component {
     const { currentUser } = firebase.auth();
     const db = firebase.firestore();
 
-    db.collection(`users/${currentUser.uid}/memos`)
+    db.collection(`users/${currentUser.uid}/memos`).orderBy('update_at', 'desc')
     .get()
     .then((querySnapshot) => {
       const memoList = [];
@@ -30,13 +30,14 @@ class MemoListScreen extends React.Component {
     .catch((error) => {
       console.log("Error getting documents: ", error);
     });
-
   }
 
   handleCreateMemo () {
-    this.props.navigation.navigate('MemoCreate',);
+    this.props.navigation.navigate(
+      'MemoCreate',　
+      {refresh: this.componentDidMount.bind(this)}
+    );
   }
-
 
   render () {
     return (
