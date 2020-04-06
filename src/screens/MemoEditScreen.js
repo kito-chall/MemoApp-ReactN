@@ -28,6 +28,7 @@ class MemoEditScreen extends React.Component {
     })
     .then(() => {
       console.log("Document successfully updated!");
+      this.props.route.params.returnMemo(this.state);
       this.props.navigation.goBack();
     })
     .catch((error) => {
